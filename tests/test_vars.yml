@@ -1,0 +1,13 @@
+---
+
+# Vars used with tests
+
+secrets_fake_filenames: "{{ secrets_ca_certificates_from_file }}"
+
+secrets_ca_certificates_from_yaml:
+  - filename: secrets_test_ca_management_from_yml.crt
+    content: 'foobar'
+
+secrets_ca_certificates_from_file:
+  - 'secrets_test_ca_management_from_file.crt'
+

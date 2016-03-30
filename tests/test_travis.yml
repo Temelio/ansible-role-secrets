@@ -4,10 +4,18 @@
 
 - hosts: localhost
   remote_user: root
+  pre_tasks:
+    - name: Generate empty test files
+      command: "touch files/{{ item }}"
+      delegate_to: 127.0.0.1
+      changed_when: False
+      with_items: "{{ secrets_fake_filenames }}"
   roles:
     - "{{ role_name }}"
   post_tasks:
     - include: ./test_common.yml
   vars:
     role_name: "{{ lookup('env','TRAVIS_REPO_SLUG') }}"
+  vars_files:
+    - "./test_vars.yml"
 

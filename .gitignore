@@ -9,6 +9,10 @@
 
 # Vagrant
 .vagrant
+*.retry
 
 # Bundle
 .bundle
+
+# Role test files
+files/secrets_test*
