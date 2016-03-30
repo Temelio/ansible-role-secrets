@@ -2,7 +2,9 @@
 
 [![Build Status](https://travis-ci.org/Temelio/ansible-role-secrets.svg?branch=master)](https://travis-ci.org/Temelio/ansible-role-secrets)
 
-Install secrets package.
+Manage secrets (certificates, SSH keys, ...) deployments.
+
+ This should be useful to remove duplicate tasks on other roles.
 
 ## Requirements
 
@@ -35,6 +37,30 @@ This role contains two tests methods :
 ## Role Variables
 
 ### Default role variables
+
+    # CA certificates deployment
+    secrets_ca_certificates_dest_path: '/etc/ssl/certs'
+    secrets_ca_certificates_dest_owner: 'root'
+    secrets_ca_certificates_dest_group: 'root'
+    secrets_ca_certificates_dest_mode: 'root'
+    secrets_ca_certificates_from_yaml: []
+    secrets_ca_certificates_from_file: []
+
+## How to ...
+
+### Manage CA certificates
+
+Manage your vars files in your plays and simply use this syntax:
+
+    # From YAML
+    secrets_ca_certificates_from_yaml:
+      - filename: 'my_ca_cert.pem'
+        content: 'dqsdqsdqsdqsdqsd'
+      - "{{ ca_certs.foo }}"
+
+    # From files
+    secrets_ca_certificates_from_file:
+      - files/foo.pem
 
 ## Dependencies
 

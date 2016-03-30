@@ -1,0 +1,25 @@
+---
+
+# All tasks to deploy CA certificates
+
+- name: Deploy CA certificate files from yaml
+  become: True
+  copy:
+    content: "{{ item.content }}"
+    dest: "{{ secrets_ca_certificates_dest_path }}/{{ item.filename }}"
+    owner: "{{ secrets_ca_certificates_dest_owner }}"
+    group: "{{ secrets_ca_certificates_dest_group }}"
+    mode: "{{ secrets_ca_certificates_dest_mode }}"
+  with_items: "{{ secrets_ca_certificates_from_yaml }}"
+
+
+- name: Deploy CA certificate files from files
+  become: True
+  copy:
+    src: "{{ item }}"
+    dest: "{{ secrets_ca_certificates_dest_path }}/{{ item | basename }}"
+    owner: "{{ secrets_ca_certificates_dest_owner }}"
+    group: "{{ secrets_ca_certificates_dest_group }}"
+    mode: "{{ secrets_ca_certificates_dest_mode }}"
+  with_items: "{{ secrets_ca_certificates_from_file }}"
+

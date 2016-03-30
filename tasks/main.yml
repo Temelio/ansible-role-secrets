@@ -2,3 +2,7 @@
 
 # Main tasks file for secrets role
 
+# Manage CA cert files
+- name: Manage CA certificate files deployment
+  include: "{{ role_path }}/tasks/manage_ca_certificates.yml"
+
