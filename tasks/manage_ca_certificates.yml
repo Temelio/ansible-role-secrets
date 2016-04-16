@@ -6,20 +6,35 @@
   become: True
   copy:
     content: "{{ item.content }}"
-    dest: "{{ secrets_ca_certificates_dest_path }}/{{ item.filename }}"
-    owner: "{{ secrets_ca_certificates_dest_owner }}"
-    group: "{{ secrets_ca_certificates_dest_group }}"
-    mode: "{{ secrets_ca_certificates_dest_mode }}"
+    dest: "{{ (item.dest_folder | default(secrets_ca_certificates_dest_folder))
+              ~ '/' ~ item.filename }}"
+    owner: "{{ item.owner | default(secrets_ca_certificates_dest_owner) }}"
+    group: "{{ item.group | default(secrets_ca_certificates_dest_group) }}"
+    mode: "{{ item.mode | default(secrets_ca_certificates_dest_mode) }}"
   with_items: "{{ secrets_ca_certificates_from_yaml }}"
+  when: "{{ (item.state is not defined) or (item.state == 'present') }}"
 
 
 - name: Deploy CA certificate files from files
   become: True
   copy:
-    src: "{{ item }}"
-    dest: "{{ secrets_ca_certificates_dest_path }}/{{ item | basename }}"
-    owner: "{{ secrets_ca_certificates_dest_owner }}"
-    group: "{{ secrets_ca_certificates_dest_group }}"
-    mode: "{{ secrets_ca_certificates_dest_mode }}"
+    src: "{{ item.src }}"
+    dest: "{{ (item.dest_folder | default(secrets_ca_certificates_dest_folder))
+              ~ '/' ~ item.filename }}"
+    owner: "{{ item.owner | default(secrets_ca_certificates_dest_owner) }}"
+    group: "{{ item.group | default(secrets_ca_certificates_dest_group) }}"
+    mode: "{{ item.mode | default(secrets_ca_certificates_dest_mode) }}"
   with_items: "{{ secrets_ca_certificates_from_file }}"
+  when: "{{ (item.state is not defined) or (item.state == 'present') }}"
 
+
+- name: Remove certificate files
+  become: True
+  file:
+    dest: "{{ (item.dest_folder | default(secrets_ca_certificates_dest_folder))
+              ~ '/' ~ item.filename }}"
+    state: 'absent'
+  with_flattened:
+    - "{{ secrets_ca_certificates_from_yaml }}"
+    - "{{ secrets_ca_certificates_from_file }}"
+  when: "{{ (item.state is defined) and (item.state == 'absent') }}"

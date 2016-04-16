@@ -10,7 +10,7 @@
       delegate_to: 127.0.0.1
       changed_when: False
       with_flattened:
-        - "{{ secrets_ca_certificates_from_file }}"
+        - "{{ secrets_ca_certificates_from_file | map(attribute='src') | list }}"
         - "{{ secrets_private_keys_from_file | map(attribute='src') | list }}"
   roles:
     - "{{ role_name }}"

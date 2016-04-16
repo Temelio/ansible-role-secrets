@@ -3,7 +3,7 @@
 # Defaults vars file for secrets role
 
 # CA certificates deployment
-secrets_ca_certificates_dest_path: '/etc/ssl/certs'
+secrets_ca_certificates_dest_folder: '/etc/ssl/certs'
 secrets_ca_certificates_dest_owner: 'root'
 secrets_ca_certificates_dest_group: 'root'
 secrets_ca_certificates_dest_mode: '0644'
