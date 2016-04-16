@@ -2,12 +2,31 @@
 
 # Vars used with tests
 
-secrets_fake_filenames: "{{ secrets_ca_certificates_from_file }}"
-
 secrets_ca_certificates_from_yaml:
-  - filename: secrets_test_ca_management_from_yml.crt
+  - filename: 'secrets_test_ca_management_from_yml.crt'
     content: 'foobar'
 
 secrets_ca_certificates_from_file:
   - 'secrets_test_ca_management_from_file.crt'
 
+secrets_private_keys_from_yaml:
+  - dest: '/tmp/secrets_test_private_key_from_yml.key'
+    content: 'foobar'
+    owner: 'root'
+    group: 'root'
+  - dest: '/tmp/secrets_test_absent_private_key_from_yml.key'
+    content: 'foobar'
+    owner: 'root'
+    group: 'root'
+    state: 'absent'
+
+secrets_private_keys_from_file:
+  - src: 'secrets_test_private_key_from_file.key'
+    dest: '/tmp/secrets_test_private_key_from_file.key'
+    owner: 'root'
+    group: 'root'
+  - src: 'secrets_test_absent_private_key_from_file.key'
+    dest: '/tmp/secrets_test_absent_private_key_from_file.key'
+    owner: 'root'
+    group: 'root'
+    state: 'absent'

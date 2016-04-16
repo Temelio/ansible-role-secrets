@@ -9,7 +9,9 @@
       command: "touch files/{{ item }}"
       delegate_to: 127.0.0.1
       changed_when: False
-      with_items: "{{ secrets_fake_filenames }}"
+      with_flattened:
+        - "{{ secrets_ca_certificates_from_file }}"
+        - "{{ secrets_private_keys_from_file | map(attribute='src') | list }}"
   roles:
     - "{{ role_name }}"
   post_tasks:
