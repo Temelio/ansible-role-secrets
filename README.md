@@ -39,10 +39,10 @@ This role contains two tests methods :
 ### Default role variables
 
     # CA certificates deployment
-    secrets_ca_certificates_dest_path: '/etc/ssl/certs'
+    secrets_ca_certificates_dest_folder: '/etc/ssl/certs'
     secrets_ca_certificates_dest_owner: 'root'
     secrets_ca_certificates_dest_group: 'root'
-    secrets_ca_certificates_dest_mode: 'root'
+    secrets_ca_certificates_dest_mode: '0644'
     secrets_ca_certificates_from_yaml: []
     secrets_ca_certificates_from_file: []
 
@@ -65,7 +65,8 @@ Manage your vars files in your plays and simply use this syntax:
 
     # From files
     secrets_ca_certificates_from_file:
-      - files/foo.pem
+      - src: files/foo.pem
+        filename: 'foo.pem'
 
 ### Manage private keys
 
