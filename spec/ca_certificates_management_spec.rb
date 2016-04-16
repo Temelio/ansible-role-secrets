@@ -9,6 +9,8 @@ describe 'secrets Ansible role' do
     # Declare variables
     yaml_name = ''
     file_name = ''
+    absent_files = Array['/tmp/secrets_test_absent_ca_management_from_yml.crt',
+                         '/tmp/secrets_test_absent_ca_management_from_file.crt']
     owner = ''
     group = ''
     mode = 644
@@ -34,6 +36,12 @@ describe 'secrets Ansible role' do
         it { should be_owned_by owner }
         it { should be_grouped_into group }
         it { should be_mode mode }
+    end
+
+    it 'remove certificates with absent state' do
+        absent_files.each do |filename|
+            expect(file(filename)).to_not exist
+        end
     end
 end
 
