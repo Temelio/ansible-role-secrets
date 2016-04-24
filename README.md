@@ -47,9 +47,9 @@ This role contains two tests methods :
     secrets_ca_certificates_from_file: []
 
     # Private keys deployment
-    secrets_private_keys_mode: '0400'
-    secrets_private_keys_from_yaml: []
-    secrets_private_keys_from_file: []
+    secrets_ssh_private_keys_mode: '0400'
+    secrets_ssh_private_keys_from_yaml: []
+    secrets_ssh_private_keys_from_file: []
 
 ## How to ...
 
@@ -68,13 +68,13 @@ Manage your vars files in your plays and simply use this syntax:
       - src: files/foo.pem
         filename: 'foo.pem'
 
-### Manage private keys
+### Manage SSH private keys
 
 Manage your vars files in your plays and simply use the following syntax.
 If 'state' is not defined, it's same as 'present' value.
 
     # From YAML
-    secrets_private_keys_from_yaml:
+    secrets_ssh_private_keys_from_yaml:
       - dest: '/home/foo/.ssh/foo.rsa'
         content: 'dqsdqsdqsdqsdqsd'
         owner: 'foo'
@@ -82,7 +82,7 @@ If 'state' is not defined, it's same as 'present' value.
       - "{{ private_keys.foo }}"
 
     # From files
-    secrets_private_keys_from_file:
+    secrets_ssh_private_keys_from_file:
       - src: 'files/foo.pem'
         dest: '/home/foo/.ssh/foo.rsa'
         owner: 'foo'

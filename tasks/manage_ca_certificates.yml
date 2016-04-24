@@ -2,7 +2,7 @@
 
 # All tasks to deploy CA certificates
 
-- name: Deploy CA certificate files from yaml
+- name: 'Deploy CA certificate files from yaml'
   become: True
   copy:
     content: "{{ item.content }}"
@@ -15,7 +15,7 @@
   when: "{{ (item.state is not defined) or (item.state == 'present') }}"
 
 
-- name: Deploy CA certificate files from files
+- name: 'Deploy CA certificate files from files'
   become: True
   copy:
     src: "{{ item.src }}"
@@ -28,7 +28,7 @@
   when: "{{ (item.state is not defined) or (item.state == 'present') }}"
 
 
-- name: Remove certificate files
+- name: 'Remove certificate files'
   become: True
   file:
     dest: "{{ (item.dest_folder | default(secrets_ca_certificates_dest_folder))
