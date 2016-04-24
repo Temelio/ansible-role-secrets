@@ -16,23 +16,23 @@ secrets_ca_certificates_from_file:
     filename: 'secrets_test_absent_ca_management_from_file.crt'
     state: 'absent'
 
-secrets_private_keys_from_yaml:
-  - dest: '/tmp/secrets_test_private_key_from_yml.key'
+secrets_ssh_private_keys_from_yaml:
+  - dest: '/tmp/secrets_test_ssh_private_key_from_yml.key'
     content: 'foobar'
     owner: 'root'
     group: 'root'
-  - dest: '/tmp/secrets_test_absent_private_key_from_yml.key'
+  - dest: '/tmp/secrets_test_ssh_absent_private_key_from_yml.key'
     content: 'foobar'
     owner: 'root'
     group: 'root'
     state: 'absent'
 
-secrets_private_keys_from_file:
-  - src: 'secrets_test_private_key_from_file.key'
+secrets_ssh_private_keys_from_file:
+  - src: 'secrets_test_ssh_private_key_from_file.key'
     dest: '/tmp/secrets_test_private_key_from_file.key'
     owner: 'root'
     group: 'root'
-  - src: 'secrets_test_absent_private_key_from_file.key'
+  - src: 'secrets_test_ssh_absent_private_key_from_file.key'
     dest: '/tmp/secrets_test_absent_private_key_from_file.key'
     owner: 'root'
     group: 'root'

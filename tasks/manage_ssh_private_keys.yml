@@ -1,37 +1,37 @@
 ---
 
-# All tasks to deploy private keys
+# All tasks to deploy SSH private keys
 
-- name: Deploy private keys files from yaml
+- name: Deploy SSH private keys files from yaml
   become: True
   copy:
     content: "{{ item.content }}"
     dest: "{{ item.dest }}"
     owner: "{{ item.owner }}"
     group: "{{ item.group }}"
-    mode: "{{ secrets_private_keys_mode }}"
-  with_items: "{{ secrets_private_keys_from_yaml }}"
+    mode: "{{ secrets_ssh_private_keys_mode }}"
+  with_items: "{{ secrets_ssh_private_keys_from_yaml }}"
   when: "{{ (item.state is not defined) or (item.state == 'present') }}"
 
 
-- name: Deploy private keys files from files
+- name: Deploy SSH private keys files from files
   become: True
   copy:
     src: "{{ item.src }}"
     dest: "{{ item.dest }}"
     owner: "{{ item.owner }}"
     group: "{{ item.group }}"
-    mode: "{{ secrets_private_keys_mode }}"
-  with_items: "{{ secrets_private_keys_from_file }}"
+    mode: "{{ secrets_ssh_private_keys_mode }}"
+  with_items: "{{ secrets_ssh_private_keys_from_file }}"
   when: "{{ (item.state is not defined) or (item.state == 'present') }}"
 
 
-- name: Remove private keys files
+- name: Remove SSH private keys files
   become: True
   file:
     dest: "{{ item.dest }}"
     state: 'absent'
   with_flattened:
-    - "{{ secrets_private_keys_from_yaml }}"
-    - "{{ secrets_private_keys_from_file }}"
+    - "{{ secrets_ssh_private_keys_from_yaml }}"
+    - "{{ secrets_ssh_private_keys_from_file }}"
   when: "{{ (item.state is defined) and (item.state == 'absent') }}"

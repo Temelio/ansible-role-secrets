@@ -4,13 +4,13 @@ if ENV['TRAVIS']
     set :backend, :exec
 end
 
-describe 'secrets Ansible role - private keys' do
+describe 'secrets Ansible role - SSH private keys' do
 
     # Declare variables
-    yaml_name = '/tmp/secrets_test_private_key_from_yml.key'
-    file_name = '/tmp/secrets_test_private_key_from_file.key'
-    absent_files = Array['/tmp/secrets_test_absent_private_key_from_yml.key',
-                         '/tmp/secrets_test_absent_private_key_from_file.key']
+    yaml_name = '/tmp/secrets_test_ssh_private_key_from_yml.key'
+    file_name = '/tmp/secrets_test_ssh_private_key_from_file.key'
+    absent_files = Array['/tmp/secrets_test_absent_ssh_private_key_from_yml.key',
+                         '/tmp/secrets_test_absent_ssh_private_key_from_file.key']
     owner = 'root'
     group = 'root'
     mode = 400
