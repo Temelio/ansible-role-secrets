@@ -2,7 +2,7 @@
 
 # All tasks to deploy SSH private keys
 
-- name: Deploy SSH private keys files from yaml
+- name: 'Deploy SSH private keys files from yaml'
   become: True
   copy:
     content: "{{ item.content }}"
@@ -14,7 +14,7 @@
   when: "{{ (item.state is not defined) or (item.state == 'present') }}"
 
 
-- name: Deploy SSH private keys files from files
+- name: 'Deploy SSH private keys files from files'
   become: True
   copy:
     src: "{{ item.src }}"
@@ -26,7 +26,7 @@
   when: "{{ (item.state is not defined) or (item.state == 'present') }}"
 
 
-- name: Remove SSH private keys files
+- name: 'Remove SSH private keys files'
   become: True
   file:
     dest: "{{ item.dest }}"

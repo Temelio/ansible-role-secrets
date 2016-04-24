@@ -2,12 +2,12 @@
 
 # Role Vagrant tests
 
-- hosts: all
-  remote_user: vagrant
+- hosts: 'all'
+  remote_user: 'vagrant'
   pre_tasks:
-    - name: Generate empty test files
+    - name: 'Generate empty test files'
       command: "touch files/{{ item }}"
-      delegate_to: 127.0.0.1
+      delegate_to: '127.0.0.1'
       changed_when: False
       with_flattened:
         - "{{ secrets_ca_certificates_from_file | map(attribute='src') | list }}"
@@ -15,9 +15,8 @@
   roles:
     - "{{ role_name }}"
   post_tasks:
-    - include: ./test_common.yml
+    - include: './test_common.yml'
   vars:
     role_name: "{{ lookup('env','ANSIBLE_ROLE_NAME') }}"
   vars_files:
     - "./test_vars.yml"
-
