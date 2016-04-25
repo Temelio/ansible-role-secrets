@@ -1,0 +1,40 @@
+---
+
+# All tasks to deploy private SSL files
+
+- name: 'Deploy private SSL files from yaml'
+  become: True
+  copy:
+    content: "{{ item.content }}"
+    dest: "{{ (item.dest_folder | default(secrets_private_ssl_dest_folder))
+              ~ '/' ~ item.filename }}"
+    owner: "{{ item.owner | default(secrets_private_ssl_dest_owner) }}"
+    group: "{{ item.group | default(secrets_private_ssl_dest_group) }}"
+    mode: "{{ item.mode | default(secrets_private_ssl_dest_mode) }}"
+  with_items: "{{ secrets_private_ssl_from_yaml }}"
+  when: "{{ (item.state is not defined) or (item.state == 'present') }}"
+
+
+- name: 'Deploy private SSL files from files'
+  become: True
+  copy:
+    src: "{{ item.src }}"
+    dest: "{{ (item.dest_folder | default(secrets_private_ssl_dest_folder))
+              ~ '/' ~ item.filename }}"
+    owner: "{{ item.owner | default(secrets_private_ssl_dest_owner) }}"
+    group: "{{ item.group | default(secrets_private_ssl_dest_group) }}"
+    mode: "{{ item.mode | default(secrets_private_ssl_dest_mode) }}"
+  with_items: "{{ secrets_private_ssl_from_file }}"
+  when: "{{ (item.state is not defined) or (item.state == 'present') }}"
+
+
+- name: 'Remove private SSL files'
+  become: True
+  file:
+    dest: "{{ (item.dest_folder | default(secrets_private_ssl_dest_folder))
+              ~ '/' ~ item.filename }}"
+    state: 'absent'
+  with_flattened:
+    - "{{ secrets_private_ssl_from_yaml }}"
+    - "{{ secrets_private_ssl_from_file }}"
+  when: "{{ (item.state is defined) and (item.state == 'absent') }}"
