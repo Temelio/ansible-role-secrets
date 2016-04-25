@@ -11,3 +11,8 @@
 - name: 'Manage SSH private key files deployment'
   include: "{{ role_path }}/tasks/manage_ssh_private_keys.yml"
   no_log: True
+
+# Manage GPG public keys
+- name: 'Manage GPG public keys deployment'
+  include: "{{ role_path }}/tasks/manage_gpg_public_keys.yml"
+  no_log: True

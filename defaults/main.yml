@@ -14,3 +14,17 @@ secrets_ca_certificates_from_file: []
 secrets_ssh_private_keys_mode: '0400'
 secrets_ssh_private_keys_from_yaml: []
 secrets_ssh_private_keys_from_file: []
+
+# GPG public keys management
+secrets_gpg_public_keys_from_yaml: []
+secrets_gpg_public_keys_from_file: []
+secrets_gpg_public_keys_from_keyserver: []
+secrets_gpg_public_keys_to_remove: []
+secrets_gpg_import_keyserver_retries: 5
+secrets_gpg_import_keyserver_delay: 10
+secrets_gpg_key_servers:
+  - 'keys.gnupg.net'
+  - 'hkp://subkeys.pgp.net'
+  - 'pgp.mit.edu'
+  - 'pool.sks-keyservers.net'
+  - 'keyserver.ubuntu.com'

@@ -37,3 +37,52 @@ secrets_ssh_private_keys_from_file:
     owner: 'root'
     group: 'root'
     state: 'absent'
+
+secrets_gpg_public_keys_from_yaml:
+  - dest: '/tmp/secret_test_gpg_public_key_from_yaml.key'
+    content: |
+      -----BEGIN PGP PUBLIC KEY BLOCK-----
+      Version: GnuPG v1
+
+      mQENBFcc6poBCADXfbb4uJqPilzPrII8kBJmduajqj9cyqgkACSCXPKdiM9N5iV3
+      yvrMpv2YiNRKWJ1EzjbZwpz9Tr5zePuWy+qYTaeU/U4yADh/diP8dXxSsWfsfhe0
+      B2Qp9C2KztRi26KuCQNuInbt/0666yyzqvMbzc5fA4WnL5j4Q5GuCa+WXBxq2fTc
+      g0lz8+Y82MsL4ScNi7CHfUCw/LXstM9k01Gr5Hy+cOwst5OdAp/lZTOPI7/4/nND
+      kC1NyIIV9MpY7dWN8Dmo96StGzc32PGtQukH5uSKxkL3yGJsleoulmIgtoopMSmD
+      I18eiwsjd/xpybhRRs9uq6MwokzLI8e3rwQHABEBAAG0SlRlbWVsaW8gR1BHIHRl
+      c3RpbmcwMSAoRmFrZSB1c2VyIC0gdGVzdGluZyB0YXJnZXQpIDx0ZXN0aW5nMDFA
+      bm90LXVzZS5jb20+iQE3BBMBCAAhBQJXHOqaAhsDBQsJCAcDBRUKCQgLBRYCAwEA
+      Ah4BAheAAAoJEPeAuqk0iPJbuQsH/irwgzdvm7SOwhO9nMPHTZOh3Z8yVUTWaPiG
+      CWA7V1j6f9uCkvJNFlbH4J+6IhiLFox59Dxfl8Zlr3Btd3HzP8/IeZ5ClQgGksN1
+      Nle5lftlasZq5FCdJPEfpRBVQH6jmwE4ChUxP1QvIiiCu+hN6CcnOI4lA/C4Kzjv
+      7vnGcOVQezQFehmK9UqPeD13tPixMrwCt+oLlHIA498PmIhDVyaRZRK+3humYo2T
+      2OVQC+399ZglKFoEAG8i6TVg1u688HpNN0rVj4tT3GS+ZG9Rg1bj2rjQRCYsDrJh
+      Fj4auUam5ecvPN0BS0P0pzs506stDgRfRy5mG91HQ5olrLcvBKe5AQ0EVxzqmgEI
+      ALXGw77iK3cyIvESe3US1s+KyJHEWM6lmWgNDGpsOz25be2GcVywQdczPPe0v5Iz
+      BB+2JaKgiqbTfBQSwzqRR+l6Uso/sI9z+V5l1+B1117h82NJs7s8bBJ+ZndAeBEK
+      h+yhOGIjqNV2vYNh7jSHxb6E+22rJgdh/cFSXtgu2sLT3YjyJHoHKj3DqLd0zCV2
+      Mbx2Z+/poZCBaP10MkZVdQfAIx3JMaygG59/j85Litd99XhU1Ks7mn176gqVtsCB
+      83KJ+tVywUI31TC7ONZUigZQmcXA66D8XotehvrNHeSSnvgPMbrBn4GGPa/UY+lY
+      X6nyQvr413c5L9LANAUAGo0AEQEAAYkBHwQYAQgACQUCVxzqmgIbDAAKCRD3gLqp
+      NIjyW6gZCADOUj6nfb8E+oFarPqinAT0g+LsKz1jYr08Pv8Jbc5oowbUj0ybfg6F
+      XT5+mILGgetB+HYyOUrSE93//64Q8bAh2MUoxoz2W5c+0Zvv2R7tEG1+K/3UKP45
+      ogdQ1h36Lxxm3g2TjRXE2fYoUcptQ6OdtP7+cuCIlSkAbBuBHwVSqjhlo/aO6Ife
+      Ba16/rpNsWnRHEyE167/rBJOH667JWRdkj5N5tnCFbdSPsJnb3ynPeJ7JnbrrYBT
+      eOU4ftTTf+vbWkq2zA19dOt3+qZcgIaZTtdlj1sYkIQw/kMhdxW7M7vxJF2qrkF9
+      0ZI6dDFNCvtI7oGomsLvv8aXEymwz+EH
+      =vsSo
+      -----END PGP PUBLIC KEY BLOCK-----
+    user: 'root'
+
+secrets_gpg_public_keys_from_file:
+  - src: "{{ role_path }}/tests/gpg/testing02.key"
+    dest: '/tmp/secret_test_gpg_public_key_from_file.key'
+    user: 'root'
+
+secrets_gpg_public_keys_from_keyserver:
+  - key_id: '0x8C2F849CD1CE33EC'
+    user: 'root'
+
+secrets_gpg_public_keys_to_remove:
+  - key_id: '7D3DD982'
+    user: 'root'
