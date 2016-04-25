@@ -11,6 +11,7 @@
       changed_when: False
       with_flattened:
         - "{{ secrets_ca_certificates_from_file | map(attribute='src') | list }}"
+        - "{{ secrets_private_ssl_from_file | map(attribute='src') | list }}"
         - "{{ secrets_ssh_private_keys_from_file | map(attribute='src') | list }}"
   roles:
     - "{{ role_name }}"
