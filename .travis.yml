@@ -53,10 +53,11 @@ script:
     --connection=local --sudo
 
   # Run the role/playbook again, checking to make sure it's idempotent.
+  # The changed=2 is due to remove key test
   - >
     ansible-playbook -i tests/inventory tests/test_travis.yml
     --connection=local --sudo
-    | grep -q 'changed=[0].*failed=0'
+    | grep -q 'changed=[2].*failed=0'
     && (echo 'Idempotence test: pass' && exit 0)
     || (echo 'Idempotence test: fail' && exit 1)
 
