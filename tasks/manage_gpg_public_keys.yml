@@ -3,6 +3,7 @@
 # All tasks to deploy GPG public keys
 
 - name: 'Copy GPG public keys files from yaml'
+  become: True
   become_user: "{{ item.user | default('root') }}"
   copy:
     content: "{{ item.content }}"
@@ -14,6 +15,7 @@
 
 
 - name: 'Copy GPG public keys files from files'
+  become: True
   become_user: "{{ item.user | default('root') }}"
   copy:
     src: "{{ item.src }}"
@@ -25,6 +27,7 @@
 
 
 - name: 'Import public GPG keys from temp files'
+  become: True
   become_user: "{{ item.user | default('root') }}"
   import_gpg_public_key:
     import_type: 'file'
@@ -36,6 +39,7 @@
 
 
 - name: 'Import GPG public key from keyserver using specific key servers list'
+  become: True
   become_user: "{{ item.user | default('root') }}"
   import_gpg_public_key:
     import_type: 'keyserver'
@@ -50,6 +54,7 @@
 
 
 - name: 'Import GPG public key from keyserver using default key servers list'
+  become: True
   become_user: "{{ item.user | default('root') }}"
   import_gpg_public_key:
     import_type: 'keyserver'
@@ -76,6 +81,7 @@
 
 
 - name: 'Remove GPG public keys'
+  become: True
   become_user: "{{ item.user | default('root') }}"
   remove_gpg_key:
     key_type: 'public'
