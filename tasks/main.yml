@@ -2,6 +2,13 @@
 
 # Main tasks file for secrets role
 
+- name: 'INIT | Manage variables to use for our target'
+  include: "{{ role_path }}/tasks/manage_variables.yml"
+  tags:
+    - 'role::secrets'
+    - 'role::secrets::init'
+
+
 # Manage CA cert files
 - name: 'Manage CA certificate files deployment'
   include: "{{ role_path }}/tasks/manage_ca_certificates.yml"
