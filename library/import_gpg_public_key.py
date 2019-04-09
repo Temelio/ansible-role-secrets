@@ -70,6 +70,11 @@ def main():
     has_changed = False
     if ('imported: 1' in stderr):
         has_changed = True
+    else:
+        if ('unchanged: 1' in stderr):
+            has_changed = False
+        if ('processed: 0' in stderr):
+            has_changed = False
 
     module.exit_json(changed=has_changed, output=stdout, err=stderr)
 

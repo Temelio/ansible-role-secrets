@@ -11,7 +11,7 @@
     mode: '0400'
   changed_when: False
   with_items: "{{ secrets_gpg_public_keys_from_yaml }}"
-  when: "{{ (item.state is not defined) or (item.state == 'present') }}"
+  when: (item.state is not defined) or (item.state == 'present')
 
 
 - name: 'Copy GPG public keys files from files'
@@ -23,7 +23,7 @@
     mode: '0400'
   changed_when: False
   with_items: "{{ secrets_gpg_public_keys_from_file }}"
-  when: "{{ (item.state is not defined) or (item.state == 'present') }}"
+  when: (item.state is not defined) or (item.state == 'present')
 
 
 - name: 'Import public GPG keys from temp files'
@@ -33,9 +33,9 @@
     import_type: 'file'
     key_path: "{{ item.dest }}"
   with_flattened:
-    - "{{ secrets_gpg_public_keys_from_yaml }}"
-    - "{{ secrets_gpg_public_keys_from_file }}"
-  when: "{{ (item.state is not defined) or (item.state == 'present') }}"
+    - "{{ secrets_gpg_public_keys_from_yaml }}"
+    - "{{ secrets_gpg_public_keys_from_file }}"
+  when: (item.state is not defined) or (item.state == 'present')
 
 
 - name: 'Import GPG public key from keyserver using specific key servers list'
@@ -46,11 +46,11 @@
     key_id: "{{ item.key_id }}"
     key_servers: "{{ item.key_servers }}"
   register: 'secrets_gpg_import_custom'
-  until: "{{ secrets_gpg_import_custom | success }}"
+  until: secrets_gpg_import_custom is success
   retries: "{{ secrets_gpg_import_keyserver_retries }}"
   delay: "{{ secrets_gpg_import_keyserver_delay }}"
   with_items: "{{ secrets_gpg_public_keys_from_keyserver }}"
-  when: "{{ item.key_servers is defined }}"
+  when: item.key_servers is defined
 
 
 - name: 'Import GPG public key from keyserver using default key servers list'
@@ -61,11 +61,11 @@
     key_id: "{{ item.key_id }}"
     key_servers: "{{ secrets_gpg_key_servers }}"
   register: 'secrets_gpg_import_default'
-  until: "{{ secrets_gpg_import_default | success }}"
+  until: secrets_gpg_import_default is success
   retries: "{{ secrets_gpg_import_keyserver_retries }}"
   delay: "{{ secrets_gpg_import_keyserver_delay }}"
   with_items: "{{ secrets_gpg_public_keys_from_keyserver }}"
-  when: "{{ item.key_servers is not defined }}"
+  when: item.key_servers is not defined
 
 
 - name: 'Remove GPG public keys temp files'
@@ -75,9 +75,9 @@
     state: 'absent'
   changed_when: False
   with_flattened:
-    - "{{ secrets_gpg_public_keys_from_yaml }}"
-    - "{{ secrets_gpg_public_keys_from_file }}"
-  when: "{{ (item.state is not defined) or (item.state == 'present') }}"
+    - "{{ secrets_gpg_public_keys_from_yaml }}"
+    - "{{ secrets_gpg_public_keys_from_file }}"
+  when: (item.state is not defined) or (item.state == 'present')
 
 
 - name: 'Remove GPG public keys'
@@ -87,3 +87,4 @@
     key_type: 'public'
     key_id: "{{ item.key_id }}"
   with_items: "{{ secrets_gpg_public_keys_to_remove }}"
+  when: item.key_id is defined

@@ -2,22 +2,36 @@
 
 # Main tasks file for secrets role
 
+- name: 'INIT | Manage variables to use for our target'
+  include_tasks: "{{ role_path }}/tasks/manage_variables.yml"
+  tags:
+    - 'role::secrets'
+    - 'role::secrets::init'
+
+- name: 'Install prerequisites'
+  apt:
+    name: "{{ item.name }}"
+    state: 'present'
+    update_cache: True
+  when: (ansible_distribution_release | lower == 'bionic') or (ansible_distribution_release | lower == 'stretch')
+  with_items: "{{ gpg_packages }}"
+
 # Manage CA cert files
 - name: 'Manage CA certificate files deployment'
-  include: "{{ role_path }}/tasks/manage_ca_certificates.yml"
+  include_tasks: "{{ role_path }}/tasks/manage_ca_certificates.yml"
   no_log: True
 
 # Manage private SSL files
 - name: 'Manage private SSL files deployment'
-  include: "{{ role_path }}/tasks/manage_private_ssl.yml"
+  include_tasks: "{{ role_path }}/tasks/manage_private_ssl.yml"
   no_log: True
 
 # Manage SSH private key files
 - name: 'Manage SSH private key files deployment'
-  include: "{{ role_path }}/tasks/manage_ssh_private_keys.yml"
+  include_tasks: "{{ role_path }}/tasks/manage_ssh_private_keys.yml"
   no_log: True
 
 # Manage GPG public keys
 - name: 'Manage GPG public keys deployment'
-  include: "{{ role_path }}/tasks/manage_gpg_public_keys.yml"
+  include_tasks: "{{ role_path }}/tasks/manage_gpg_public_keys.yml"
   no_log: True

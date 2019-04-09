@@ -12,7 +12,7 @@
     group: "{{ item.group | default(secrets_ca_certificates_dest_group) }}"
     mode: "{{ item.mode | default(secrets_ca_certificates_dest_mode) }}"
   with_items: "{{ secrets_ca_certificates_from_yaml }}"
-  when: "{{ (item.state is not defined) or (item.state == 'present') }}"
+  when: (item.state is not defined) or (item.state == 'present')
 
 
 - name: 'Deploy CA certificate files from files'
@@ -25,7 +25,7 @@
     group: "{{ item.group | default(secrets_ca_certificates_dest_group) }}"
     mode: "{{ item.mode | default(secrets_ca_certificates_dest_mode) }}"
   with_items: "{{ secrets_ca_certificates_from_file }}"
-  when: "{{ (item.state is not defined) or (item.state == 'present') }}"
+  when: (item.state is not defined) or (item.state == 'present')
 
 
 - name: 'Remove certificate files'
@@ -35,6 +35,6 @@
               ~ '/' ~ item.filename }}"
     state: 'absent'
   with_flattened:
-    - "{{ secrets_ca_certificates_from_yaml }}"
-    - "{{ secrets_ca_certificates_from_file }}"
-  when: "{{ (item.state is defined) and (item.state == 'absent') }}"
+    - "{{ secrets_ca_certificates_from_yaml }}"
+    - "{{ secrets_ca_certificates_from_file }}"
+  when: (item.state is defined) and (item.state == 'absent')
