@@ -21,4 +21,3 @@ describe 'secrets Ansible role - SSH private keys' do
         end
     end
 end
-

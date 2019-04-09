@@ -6,7 +6,7 @@ Install secrets package.
 
 ## Requirements
 
-This role requires Ansible 2.0 or higher,
+This role requires Ansible 2.4 or higher,
 and platform requirements are listed in the metadata file.
 
 ## Testing
@@ -17,15 +17,15 @@ Locally, you can run tests on Docker (default driver) or Vagrant.
 Travis run tests using Docker driver only.
 
 Currently, tests are done on:
-- Debian Jessie
-- Ubuntu Trusty
+- Debian Stretch
 - Ubuntu Xenial
+- Ubuntu Bionic
 
 and use:
-- Ansible 2.0.x
-- Ansible 2.1.x
-- Ansible 2.2.x
-- Ansible 2.3.x
+- Ansible 2.4.x
+- Ansible 2.5.x
+- Ansible 2.6.x
+- Ansible 2.7.x
 
 ### Running tests
 
@@ -33,12 +33,6 @@ and use:
 
 ```
 $ tox
-```
-
-#### Using Vagrant driver
-
-```
-$ MOLECULE_DRIVER=vagrant tox
 ```
 
 ## Role Variables
@@ -139,6 +133,5 @@ MIT
 
 ## Author Information
 
-Alexandre Chaussier (for Temelio company)
-- http://www.temelio.com
-- alexandre.chaussier [at] temelio.com
+A. Chaussier, L. Machetel (for Temelio company)
+- https://www.temelio.com

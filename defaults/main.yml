@@ -31,8 +31,6 @@ secrets_gpg_public_keys_to_remove: []
 secrets_gpg_import_keyserver_retries: 5
 secrets_gpg_import_keyserver_delay: 10
 secrets_gpg_key_servers:
-  - 'keys.gnupg.net'
-  - 'hkp://subkeys.pgp.net'
-  - 'pgp.mit.edu'
-  - 'pool.sks-keyservers.net'
+  - 'ha.pool.sks-keyservers.net'
+  - 'sks-keyservers.net'
   - 'keyserver.ubuntu.com'

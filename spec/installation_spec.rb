@@ -19,4 +19,3 @@ describe 'secrets Ansible role' do
         end
     end
 end
-

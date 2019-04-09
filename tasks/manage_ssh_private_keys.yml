@@ -11,7 +11,7 @@
     group: "{{ item.group }}"
     mode: "{{ secrets_ssh_private_keys_mode }}"
   with_items: "{{ secrets_ssh_private_keys_from_yaml }}"
-  when: "{{ (item.state is not defined) or (item.state == 'present') }}"
+  when: (item.state is not defined) or (item.state == 'present')
 
 
 - name: 'Deploy SSH private keys files from files'
@@ -23,7 +23,7 @@
     group: "{{ item.group }}"
     mode: "{{ secrets_ssh_private_keys_mode }}"
   with_items: "{{ secrets_ssh_private_keys_from_file }}"
-  when: "{{ (item.state is not defined) or (item.state == 'present') }}"
+  when: (item.state is not defined) or (item.state == 'present')
 
 
 - name: 'Remove SSH private keys files'
@@ -32,6 +32,6 @@
     dest: "{{ item.dest }}"
     state: 'absent'
   with_flattened:
-    - "{{ secrets_ssh_private_keys_from_yaml }}"
-    - "{{ secrets_ssh_private_keys_from_file }}"
-  when: "{{ (item.state is defined) and (item.state == 'absent') }}"
+    - "{{ secrets_ssh_private_keys_from_yaml }}"
+    - "{{ secrets_ssh_private_keys_from_file }}"
+  when: (item.state is defined) and (item.state == 'absent')
